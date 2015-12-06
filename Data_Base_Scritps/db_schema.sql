@@ -1834,3 +1834,14 @@ INSERT INTO `languages` (`id`, `language_name`, `file_sufix`) VALUES ('1000', 'D
 
 ALTER TABLE `fleets` ADD `gvauser_id` INT(11) NULL DEFAULT NULL AFTER `booked_at`;
 
+--
+-- Support fleettype specific financial parameters
+-- 
+
+CREATE TABLE `fleettypes_finparams` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `finparam_id` bigint(10) NOT NULL,
+  `fleettype_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `finparam` (`finparam_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8

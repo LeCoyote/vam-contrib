@@ -18,8 +18,18 @@
 		die('Unable to connect to database [' . $db->connect_error . ']');
 	}
 
-	function calculate_cost ($gvauser_id,$flight_id,$flight_duration,$pax,$fuel,$distance,$db,$reporttype,$route_id,$cargo) {
-		$sql_cost = 'select * from financial_parameters where parameter_active=1 and is_cost=1';
+	function calculate_cost ($gvauser_id,$flight_id,$flight_duration,$pax,$fuel,$distance,$db,$reporttype,$route_id,$cargo,$aircraft_type) {
+                $sql_aircraft = 'SELECT fleettype_id FROM fleettypes WHERE plane_icao = \''.$aircraft_type.'\'';
+		if (!$result_aircraft = $db->query($sql_aircraft)) {
+			die('There was an error running the query [' . $db->error . ']');
+		}                
+            
+                $fleettype_array = $result_aircraft->fetch_assoc();
+                $fleettype_id = $fleettype_array['fleettype_id'];
+                
+		$sql_cost = 'select financial_parameters.* from financial_parameters'
+                        . ' LEFT OUTER JOIN fleettypes_finparams ON financial_parameters.id = fleettypes_finparams.finparam_id' 
+                        . ' where parameter_active=1 and is_cost=1 and (fleettype_id IS NULL OR fleettype_id = '.$fleettype_id.')' ;
 
 		if (!$result_cost = $db->query($sql_cost)) {
 			die('There was an error running the query [' . $db->error . ']');
@@ -132,8 +142,12 @@
 		}
 		// End income for regular flights
 		// Begin income section for any flight
-		$sql_cost = 'select * from financial_parameters where parameter_active=1 and is_profit=1';
+                
+                $sql_cost = 'select financial_parameters.* from financial_parameters'
+                . ' LEFT OUTER JOIN fleettypes_finparams ON financial_parameters.id = fleettypes_finparams.finparam_id' 
+                . ' where parameter_active=1 and is_profit=1 and (fleettype_id IS NULL OR fleettype_id = '.$fleettype_id.')' ;
 
+                
 		if (!$result_cost = $db->query($sql_cost)) {
 			die('There was an error running the query [' . $db->error . ']');
 		}
@@ -229,7 +243,7 @@
 
 	// SIM ACARS flights
 	
-	$sql = "select gvauser_id, flightid, flight_duration,pax, cargo, block_fuel, distance, route_id,DATE_FORMAT(flight_date,'%Y%m%d') as flight_date from vampireps where validated=1 and flightid not in (select distinct(report_id) from va_finances where report_id is not NULL)";
+	$sql = "select gvauser_id, flightid, flight_duration,pax, cargo, block_fuel, distance, route_id,DATE_FORMAT(flight_date,'%Y%m%d') as flight_date, aircraft_type from vampireps where validated=1 and flightid not in (select distinct(report_id) from va_finances where report_id is not NULL)";
 	
 	if (!$result = $db->query($sql)) {
 		die('There was an error running the query [' . $db->error . ']');
@@ -248,7 +262,8 @@
 			$distance =  $row['distance'];
 			$reporttype = 'SIM ACARS';
 			$route_id =  $row['route_id'];
-			calculate_cost ($gvauser_id,$flight_id,$flight_duration,$pax,$fuel,$distance,$db,$reporttype,$route_id,$cargo);
+                        $aircraft_type = $row['aircraft_type'];
+			calculate_cost ($gvauser_id,$flight_id,$flight_duration,$pax,$fuel,$distance,$db,$reporttype,$route_id,$cargo,$aircraft_type);
 		}
 
 	}

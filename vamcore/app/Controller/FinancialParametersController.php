@@ -48,6 +48,8 @@ class FinancialParametersController extends AppController {
 				$this->Session->setFlash(__('The parameter could not be saved. Please, try again.'));
 			}
 		}
+                $fleettypes = $this->FinancialParameter->Fleettype->find('list');
+		$this->set(compact('fleettypes'));
 	}
 
 /**
@@ -72,7 +74,8 @@ class FinancialParametersController extends AppController {
 			$options = array('conditions' => array('FinancialParameter.' . $this->FinancialParameter->primaryKey => $id));
 			$this->request->data = $this->FinancialParameter->find('first', $options);
 		}
-		
+                $fleettypes = $this->FinancialParameter->Fleettype->find('list');
+		$this->set(compact('fleettypes'));
 	}
 
 /**

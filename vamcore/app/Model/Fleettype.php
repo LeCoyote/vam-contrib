@@ -6,7 +6,9 @@ App::uses('AppModel', 'Model');
  */
 class Fleettype extends AppModel {
 
-	var $hasMany  = array('fleet','route');
+	var $hasMany  = array('fleet','route','fleettypes_finparam'=>array('joinTable' => 'fleettypes_finparams',
+			'foreignKey' => 'finparam_id', 'associationForeignKey' => 'fleettype_id'));
+
 /**
  * Primary key field
  *

@@ -19,6 +19,7 @@
 		echo $this->Form->input('linked_to_distance',array('options' => $yes_no, 'default' => '0'));
 		echo $this->Form->input('linked_to_fuel',array('options' => $yes_no, 'default' => '0'));
 		echo $this->Form->input('linked_to_flight',array('options' => $yes_no, 'default' => '0'));
+                echo $this->Form->input('Fleettype',['label' => 'Linked to Aircraft type(s)']);
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
