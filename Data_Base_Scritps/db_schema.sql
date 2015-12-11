@@ -1845,3 +1845,9 @@ CREATE TABLE `fleettypes_finparams` (
   PRIMARY KEY (`id`),
   KEY `finparam` (`finparam_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+--
+-- Support charter-only financial parameters
+-- 
+
+ALTER TABLE financial_parameters ADD COLUMN `is_charter_only` tinyint(4) DEFAULT 0 AFTER is_profit ;

@@ -36,6 +36,10 @@
 	              		<td><?php echo $value; ?></td>	 	              		
 	              	</tr>
 	              	<tr>
+	              		<td><?php echo __('Is Charter only'); ?></td>
+	              		<?php $value='NO';if ($FinancialParameter['FinancialParameter']['is_charter_only']==1) $value='YES'; ?>
+	              		<td><?php echo $value; ?></td>	 	              		
+	              	</tr>	              	<tr>
 	              		<td><?php echo __('Linked to time'); ?></td>
 	              		<?php $value='NO';if ($FinancialParameter['FinancialParameter']['linked_to_time']==1) $value='YES'; ?>
 	              		<td><?php echo $value; ?></td>	 	              		
