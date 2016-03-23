@@ -480,7 +480,7 @@ Vous recevrez un nouvel email une fois que nous aurons validé votre inscription
 	define ('VAMACARS_FFUEL' , 'Flight Fuel');
 	define ('VAMACARS_PASSENGERS' , 'Passagers');
 	define ('VAMACARS_CARGO' , 'Cargaison');
-	define ('VAMACARS_ALTERNATE1' , 'Aalterné');
+	define ('VAMACARS_ALTERNATE1' , 'Dégagement');
 	define ('VAMACARS_WEIGHTUNIT' , 'Unité de Poids');
 	define ('VAMACARS_DATE' , 'DATE');
 	define ('VAMACARS_DEPARTURE' , 'Départ');
