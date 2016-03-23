@@ -1851,3 +1851,11 @@ CREATE TABLE `fleettypes_finparams` (
 -- 
 
 ALTER TABLE financial_parameters ADD COLUMN `is_charter_only` tinyint(4) DEFAULT 0 AFTER is_profit ;
+
+--
+-- Add recurring financial parameters
+--
+
+ALTER TABLE financial_parameters
+ADD COLUMN `valid_until` date DEFAULT NULL after is_charter_only,
+ADD COLUMN `is_recurring` tinyint(4) DEFAULT '0' AFTER is_charter_only;

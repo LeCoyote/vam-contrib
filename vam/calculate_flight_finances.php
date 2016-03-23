@@ -40,7 +40,7 @@
 		$sql_cost = 'select financial_parameters.* from financial_parameters'
                         . ' LEFT OUTER JOIN fleettypes_finparams ON financial_parameters.id = fleettypes_finparams.finparam_id' 
                         . ' where parameter_active=1 and is_cost=1 '.$charter_only
-                        . ' and (fleettype_id IS NULL OR fleettype_id = '.$fleettype_id.')' ;
+                        . ' and is_recurring=0 and (fleettype_id IS NULL OR fleettype_id = '.$fleettype_id.')' ;
 
 		if (!$result_cost = $db->query($sql_cost)) {
 			die('There was an error running the query [' . $db->error . ']');
@@ -157,7 +157,7 @@
                 $sql_cost = 'select financial_parameters.* from financial_parameters'
                 . ' LEFT OUTER JOIN fleettypes_finparams ON financial_parameters.id = fleettypes_finparams.finparam_id' 
                 . ' where parameter_active=1 and is_profit=1 '.$charter_only
-                . ' and (fleettype_id IS NULL OR fleettype_id = '.$fleettype_id.')' ;
+                . ' and is_recurring=0 and (fleettype_id IS NULL OR fleettype_id = '.$fleettype_id.')' ;
 
                 
 		if (!$result_cost = $db->query($sql_cost)) {

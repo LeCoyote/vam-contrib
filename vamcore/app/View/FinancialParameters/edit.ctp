@@ -16,6 +16,14 @@
 		echo $this->Form->input('is_cost',array('options' => $yes_no, 'default' => '0'));
 		echo $this->Form->input('is_profit',array('options' => $yes_no, 'default' => '0'));
                 echo $this->Form->input('is_charter_only',array('options' => $yes_no, 'default' => '0'));
+                echo $this->Form->input('is_recurring',array('options' => array('0'=>'No','1'=>'Daily',
+                    '2'=>'Weekly','3'=>'Monthly','4'=>'Yearly'), 'default' => '0'));
+                echo $this->Form->input('valid_until',array(
+                    'label'=> 'Valid until (empty date = UFN)',
+                    'dateFormat' => 'YMD',
+                    'empty'=>true,
+                    'minYear' => date('Y'),
+                    'maxYear' => date('Y')+10));
 		echo $this->Form->input('linked_to_time',array('options' => $yes_no, 'default' => '0'));
 		echo $this->Form->input('linked_to_pax',array('options' => $yes_no, 'default' => '0'));
 		echo $this->Form->input('linked_to_distance',array('options' => $yes_no, 'default' => '0'));
